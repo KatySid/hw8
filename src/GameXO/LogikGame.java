@@ -15,10 +15,12 @@ public class LogikGame {
         public static int x2, y2;
 
         static boolean gamefinished;
+        static boolean tie;
         private static String statusMessage;
 
         public static void go() {
             gamefinished = true;
+            tie= false;
              printMap();
                 if (checkWin(DOT_X)) {
                     statusMessage = "Вы победили!!!";
@@ -26,6 +28,7 @@ public class LogikGame {
                     return;
                 }
                 if (isMapFull()) {
+                    tie = true;
                     statusMessage = "Ничья";
                     System.out.println(statusMessage);
                     return;
@@ -38,6 +41,7 @@ public class LogikGame {
                     return;
                 }
                 if (isMapFull()) {
+                    tie = true;
                     statusMessage = "Ничья";
                     System.out.println(statusMessage);
                     return;
@@ -157,11 +161,10 @@ public class LogikGame {
                         i++;
                     }
                     if (i == DOTS_TO_WIN) {
-                         x1 = m;
-                         x2 =m+DOTS_TO_WIN-1;
-                         y1 = k;
-                         y2 = k+DOTS_TO_WIN-1;
-                        System.out.printf("%d, %d, %d, %d", x1, y1, x2, y2);
+                         y1 = m;
+                         y2 =m+DOTS_TO_WIN-1;
+                         x1 = k;
+                         x2 = k+DOTS_TO_WIN-1;
                         return true;
                     }
                 }
@@ -179,10 +182,6 @@ public class LogikGame {
                          x2 =k+DOTS_TO_WIN-1;
                          y1 = m;
                          y2 = m-DOTS_TO_WIN+1;
-                        System.out.printf("%d, %d, %d", m, k, i);
-                        System.out.println();
-                        System.out.printf("%d, %d, %d, %d", x1, y1, x2, y2);
-                        System.out.println();
                         return true;
                     }
                 }
@@ -200,7 +199,6 @@ public class LogikGame {
                          x2 = m+DOTS_TO_WIN-1;
                          y1 =i;
                          y2 =i;
-                        System.out.printf("%d, %d, %d, %d", x1, y1, x2, y2);
                         return true;
                     }
                 }
@@ -218,10 +216,6 @@ public class LogikGame {
                         x2 =j;
                         y1 =m;
                         y2 =m+DOTS_TO_WIN-1;
-                        System.out.printf("%d, %d, %d", m, j, i);
-                        System.out.println();
-                        System.out.printf("%d, %d, %d, %d", x1, y1, x2, y2);
-                        System.out.println();
                         return true;
                     }
                 }

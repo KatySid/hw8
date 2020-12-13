@@ -84,7 +84,9 @@ public class BattleMap  extends JPanel {
             }
 
         }
-        if (LogikGame.gamefinished){
+
+        //тут надо заменить условие , т.к. зачеркивает при "ничья"
+        if (!LogikGame.tie && LogikGame.gamefinished ){
             drawWinLine(g, LogikGame.x1, LogikGame.y1, LogikGame.x2, LogikGame.y2);}
     }
 
