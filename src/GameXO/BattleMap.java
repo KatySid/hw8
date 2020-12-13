@@ -35,10 +35,9 @@ public class BattleMap  extends JPanel {
                 }
                 repaint();
                 }
-
         });
-
     }
+
     public void startNewGame(int mode, int fieldSize, int winningLength){
         this.mode = mode;
         this.fieldSize=fieldSize;
@@ -71,21 +70,16 @@ public class BattleMap  extends JPanel {
                 if (LogikGame.map [i][j] == LogikGame.DOT_X){
                     drawX(g, j, i);
                 }
-
             }
-
         }
         for (int i = 0; i < LogikGame.SIZE; i++) {
             for (int j = 0; j < LogikGame.SIZE; j++) {
                 if (LogikGame.map [i][j] == LogikGame.DOT_O){
                     drawO(g, j, i);
                 }
-
             }
-
         }
 
-        //тут надо заменить условие , т.к. зачеркивает при "ничья"
         if (!LogikGame.tie && LogikGame.gamefinished ){
             drawWinLine(g, LogikGame.x1, LogikGame.y1, LogikGame.x2, LogikGame.y2);}
     }

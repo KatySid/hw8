@@ -22,7 +22,7 @@ public class LogikGame {
             gamefinished = true;
             tie= false;
              printMap();
-                if (checkWin(DOT_X)) {
+                if (checkWin(DOT_X,DOTS_TO_WIN)) {
                     statusMessage = "Вы победили!!!";
                     System.out.println(statusMessage);
                     return;
@@ -35,7 +35,7 @@ public class LogikGame {
                 }
                 aiTurn();
                 printMap();
-                if (checkWin(DOT_O)) {
+                if (checkWin(DOT_O, DOTS_TO_WIN)) {
                     statusMessage = "Победил компьютер";
                     System.out.println(statusMessage);
                     return;
@@ -98,7 +98,7 @@ public class LogikGame {
                     int k=0;
                     while (k < numbStep && map[i][j]== DOT_EMPTY) {
                         map[i][j] = DOT_O;
-                        if (checkWin(DOT_O)) {
+                        if (checkWin(DOT_O, DOTS_TO_WIN)) {
                             map[i][j] = DOT_O;
                             return;
                         } else {
@@ -115,7 +115,7 @@ public class LogikGame {
                     int k=0;
                     while (k < numbStep && map[i][j]== DOT_EMPTY) {
                         map[i][j] = DOT_X;
-                        if (checkWin(DOT_X)) {
+                        if (checkWin(DOT_X, DOTS_TO_WIN)) {
                             map[i][j] = DOT_O;
                             return;
                         } else {
@@ -125,13 +125,31 @@ public class LogikGame {
                     }
                 }
             }
+            //блокирование игрока за 2 хода до победы
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    double numbStep = Math.pow(SIZE, 2);
+                    int k = 0;
+                    while (k < numbStep && map[i][j] == DOT_EMPTY) {
+                        map[i][j] = DOT_X;
+                        if (checkWin(DOT_X, DOTS_TO_WIN - 1)) {
+                            map[i][j] = DOT_O;
+                            return;
+                        } else {
+                            map[i][j] = DOT_EMPTY;
+                        }
+                        k++;
+                    }
+                }
+            }
+
             //построение удачной линии
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < SIZE; j++) {
                     double numbStep = Math.pow(SIZE, 2);
                     int k=0;
                     while (k < numbStep && map[i][j]== DOT_EMPTY) {
-                        if (checkWin(DOT_EMPTY)) {
+                        if (checkWin(DOT_EMPTY, DOTS_TO_WIN)) {
                             map[i][j] = DOT_O;
                             return;
                         } else {
@@ -151,7 +169,7 @@ public class LogikGame {
             map[y][x] = DOT_O;
         }
 
-        public static boolean checkWin(char symb) {
+        public static boolean checkWin(char symb, int DOTS_TO_WIN) {
             //проверка диагонали
             for (int m = 0; m <= SIZE - DOTS_TO_WIN; m++) {
                 for (int k = 0; k <= SIZE - DOTS_TO_WIN; k++) {
